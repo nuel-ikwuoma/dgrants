@@ -20,7 +20,7 @@ import { contributionsKey, trustBonusKey } from 'src/utils/constants';
 import { GRANT_ROUND_MANAGER_ADDRESS, START_BLOCK, SUBGRAPH_URL } from 'src/utils/chains';
 // --- Data ---
 import useWalletStore from 'src/store/wallet';
-import { batchFilterCall, metadataId } from '../utils';
+import { batchFilterCall, metadataId, ptrToURI } from 'src/utils/utils';
 import { Ref } from 'vue';
 import { getGrantRoundGrantData } from './grantRounds';
 
@@ -439,7 +439,7 @@ export function filterContributionGrantData(
 
     const grantData = grants.find((grant) => grant.id === contribution.grantId);
     if (grantData) {
-      grantLogo = grantMetaData[<never>metadataId(grantData.metaPtr)].logoURI ?? '';
+      grantLogo = ptrToURI(grantMetaData[<never>metadataId(grantData.metaPtr)].logoPtr) ?? '';
       grantName = grantMetaData[<never>metadataId(grantData.metaPtr)].name ?? '...';
     }
 
